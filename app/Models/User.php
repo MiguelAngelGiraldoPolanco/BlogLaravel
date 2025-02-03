@@ -6,6 +6,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Post;
+
 
 class User extends Authenticatable
 {
@@ -45,7 +48,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function posts()
+    public function posts():HasMany
     {
         return $this->hasMany(Post::class);
     }
@@ -54,4 +57,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+    // Agregar el campo is_admin al modelo User
+    public function getIsAdminAttribute()
+    {
+        return $this->is_admin;
+    }
+
 }
