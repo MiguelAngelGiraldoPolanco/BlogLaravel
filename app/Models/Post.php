@@ -2,23 +2,25 @@
 
 namespace App\Models;
 
+ 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use App\Models\User;
+use Carbon\Carbon;
 class Post extends Model
 {   
     use HasFactory;
     protected $fillable = ['title', 'content', 'user_id', 'is_approved'];
     protected $casts = [
-        'is_active' => 'boolean',
-        'created_at' => 'datetime',
+        'is_approved' => 'boolean',
     ];
-    public $timestamp = true;
-    public function user():BelongsTo
+    public $timestamps = true;
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
+
 
     public function comments()
     {
@@ -39,16 +41,15 @@ class Post extends Model
     {
         return ucfirst($value);
     }
-    public function isApproved()
+    public function isApproved():bool
     {
-        return $this->is_approved; // Retorna true si está aprobado
+        return (bool) $this->is_approved; // Retorna true si está aprobado
     }
-    public function approve()
+    public function approve():void
     {
-        $this->is_approved = true;
-        $this->save();
+        $this->update(['is_approved' => true]);
     }
-    public function getCreatedAtAttribute($value)
+    public function getCreatedAtAttribute($value): string
     {
         return \Carbon\Carbon::parse($value)->format('d/m/Y H:i');
     }

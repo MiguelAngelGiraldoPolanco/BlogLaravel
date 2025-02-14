@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
     ];
 
     /**
@@ -48,7 +49,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function posts():HasMany
+    public function posts()
     {
         return $this->hasMany(Post::class);
     }
@@ -56,11 +57,6 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
-    }
-    // Agregar el campo is_admin al modelo User
-    public function getIsAdminAttribute()
-    {
-        return $this->is_admin;
     }
 
 }
