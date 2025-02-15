@@ -14,7 +14,7 @@ Este es un proyecto de blog desarrollado con Laravel. Permite la creación, edic
 - Tailwind CSS
 - Blade Templates
 - Laravel Breeze (para autenticación)
-- Docker (opcional)
+- Docker 
 
 ## Instalación
 
